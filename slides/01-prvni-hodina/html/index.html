@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111111">
+    <title>4ME484 · Úvod do kurzu</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #111;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      .stage {
+        position: relative;
+        width: 100vw;
+        height: 100dvh;
+        display: grid;
+        place-items: center;
+        background: #111;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: pan-y;
+      }
+
+      .slide {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: #fff;
+      }
+
+      .hit-area {
+        position: absolute;
+        inset-block: 0;
+        width: 34%;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .hit-area:focus-visible {
+        outline: 3px solid #0b6cff;
+        outline-offset: -6px;
+      }
+
+      .hit-area--previous {
+        left: 0;
+        cursor: w-resize;
+      }
+
+      .hit-area--next {
+        right: 0;
+        cursor: e-resize;
+      }
+
+      .controls {
+        position: absolute;
+        right: max(18px, env(safe-area-inset-right));
+        bottom: max(18px, env(safe-area-inset-bottom));
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px;
+        border: 1px solid rgb(255 255 255 / 18%);
+        border-radius: 10px;
+        background: rgb(17 17 17 / 78%);
+        box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 160ms ease, transform 160ms ease;
+      }
+
+      .stage:hover .controls,
+      .stage:focus-within .controls,
+      .controls[data-visible="true"] {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .control {
+        min-width: 38px;
+        height: 36px;
+        border: 0;
+        border-radius: 7px;
+        background: transparent;
+        color: #fff;
+        font: inherit;
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      .control:hover,
+      .control:focus-visible {
+        background: rgb(255 255 255 / 12%);
+        outline: none;
+      }
+
+      .control:disabled {
+        opacity: 0.32;
+        cursor: default;
+      }
+
+      .counter {
+        min-width: 76px;
+        padding-inline: 8px;
+        color: rgb(255 255 255 / 82%);
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
+        text-align: center;
+      }
+
+      .help {
+        position: absolute;
+        left: max(18px, env(safe-area-inset-left));
+        bottom: max(18px, env(safe-area-inset-bottom));
+        margin: 0;
+        padding: 8px 11px;
+        border-radius: 8px;
+        background: rgb(17 17 17 / 72%);
+        color: rgb(255 255 255 / 78%);
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 160ms ease;
+        pointer-events: none;
+      }
+
+      .stage:hover .help,
+      .help[data-visible="true"] {
+        opacity: 1;
+      }
+
+      @media (hover: none) {
+        .controls {
+          opacity: 0.82;
+          transform: none;
+        }
+
+        .help {
+          display: none;
+        }
+      }
+
+      @media print {
+        .controls,
+        .help,
+        .hit-area {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" id="stage" aria-label="Prezentace 4ME484 Úvod do kurzu">
+      <img class="slide" id="slide" alt="Slide 1 z 38" draggable="false">
+
+      <button class="hit-area hit-area--previous" id="previousHitArea"
+        aria-label="Předchozí slide"></button>
+      <button class="hit-area hit-area--next" id="nextHitArea"
+        aria-label="Následující slide"></button>
+
+      <p class="help" id="help">Klik vlevo/vpravo · šipky · mezerník · F pro celou obrazovku</p>
+
+      <nav class="controls" id="controls" aria-label="Ovládání prezentace">
+        <button class="control" id="previousButton" aria-label="Předchozí slide">←</button>
+        <output class="counter" id="counter" aria-live="polite">01 / 38</output>
+        <button class="control" id="nextButton" aria-label="Následující slide">→</button>
+        <button class="control" id="fullscreenButton" aria-label="Celá obrazovka">⛶</button>
+      </nav>
+    </main>
+
+    <script>
+      const totalSlides = 38;
+      const slide = document.querySelector("#slide");
+      const stage = document.querySelector("#stage");
+      const counter = document.querySelector("#counter");
+      const previousButton = document.querySelector("#previousButton");
+      const nextButton = document.querySelector("#nextButton");
+      const previousHitArea = document.querySelector("#previousHitArea");
+      const nextHitArea = document.querySelector("#nextHitArea");
+      const fullscreenButton = document.querySelector("#fullscreenButton");
+      const controls = document.querySelector("#controls");
+      const help = document.querySelector("#help");
+
+      const requestedSlide = Number(new URLSearchParams(location.search).get("slide"));
+      let currentSlide = Number.isInteger(requestedSlide)
+        ? Math.min(Math.max(requestedSlide, 1), totalSlides)
+        : 1;
+      let touchStartX = null;
+      let controlsTimer = null;
+
+      const pad = (value) => String(value).padStart(2, "0");
+      const slidePath = (value) => `assets/slide-${pad(value)}.jpg`;
+
+      function preload(value) {
+        if (value < 1 || value > totalSlides) return;
+        const image = new Image();
+        image.src = slidePath(value);
+      }
+
+      function showControls() {
+        controls.dataset.visible = "true";
+        help.dataset.visible = "true";
+        clearTimeout(controlsTimer);
+        controlsTimer = setTimeout(() => {
+          delete controls.dataset.visible;
+          delete help.dataset.visible;
+        }, 2200);
+      }
+
+      function render() {
+        slide.src = slidePath(currentSlide);
+        slide.alt = `Slide ${currentSlide} z ${totalSlides}`;
+        counter.value = `${pad(currentSlide)} / ${pad(totalSlides)}`;
+        counter.textContent = counter.value;
+        previousButton.disabled = currentSlide === 1;
+        nextButton.disabled = currentSlide === totalSlides;
+        previousHitArea.disabled = currentSlide === 1;
+        nextHitArea.disabled = currentSlide === totalSlides;
+
+        const url = new URL(location.href);
+        url.searchParams.set("slide", currentSlide);
+        history.replaceState({ slide: currentSlide }, "", url);
+
+        preload(currentSlide - 1);
+        preload(currentSlide + 1);
+      }
+
+      function goTo(value) {
+        const nextSlide = Math.min(Math.max(value, 1), totalSlides);
+        if (nextSlide === currentSlide) return;
+        currentSlide = nextSlide;
+        render();
+        showControls();
+      }
+
+      function toggleFullscreen() {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          stage.requestFullscreen();
+        }
+      }
+
+      previousButton.addEventListener("click", () => goTo(currentSlide - 1));
+      nextButton.addEventListener("click", () => goTo(currentSlide + 1));
+      previousHitArea.addEventListener("click", () => goTo(currentSlide - 1));
+      nextHitArea.addEventListener("click", () => goTo(currentSlide + 1));
+      fullscreenButton.addEventListener("click", toggleFullscreen);
+      stage.addEventListener("pointermove", showControls);
+
+      stage.addEventListener("touchstart", (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+      }, { passive: true });
+
+      stage.addEventListener("touchend", (event) => {
+        if (touchStartX === null) return;
+        const distance = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(distance) > 45) {
+          goTo(currentSlide + (distance < 0 ? 1 : -1));
+        }
+        touchStartX = null;
+      }, { passive: true });
+
+      document.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "PageDown", "Enter", " "].includes(event.key)) {
+          event.preventDefault();
+          goTo(currentSlide + 1);
+        } else if (["ArrowLeft", "PageUp", "Backspace"].includes(event.key)) {
+          event.preventDefault();
+          goTo(currentSlide - 1);
+        } else if (event.key === "Home") {
+          goTo(1);
+        } else if (event.key === "End") {
+          goTo(totalSlides);
+        } else if (event.key.toLowerCase() === "f") {
+          toggleFullscreen();
+        }
+      });
+
+      document.addEventListener("fullscreenchange", () => {
+        fullscreenButton.textContent = document.fullscreenElement ? "×" : "⛶";
+        fullscreenButton.setAttribute(
+          "aria-label",
+          document.fullscreenElement ? "Ukončit celou obrazovku" : "Celá obrazovka"
+        );
+      });
+
+      render();
+      showControls();
+    </script>
+  </body>
+</html>
