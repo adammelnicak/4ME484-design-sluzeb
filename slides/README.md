@@ -13,3 +13,11 @@ HTML prezentaci lze otevřít přímo v prohlížeči. Kliknutím do pravé nebo
 režim celé obrazovky. Veřejný repozitář obsahuje přenositelný PDF výstup i tuto
 proklikávací verzi. Editovatelný zdroj a pracovní assety zůstávají v interním
 pracovním repozitáři kurzu.
+
+## 02 - Druhá hodina: Designový proces v praxi
+
+- [PDF](02-druha-hodina/4ME484-02-designovy-proces-v-praxi.pdf)
+- [Markdown pro čtení a práci s AI](02-druha-hodina/4ME484-02-designovy-proces-v-praxi.md)
+
+5. 10. 2026 · 56 snímků. Markdown zachovává číslování PDF a doplňuje popisy
+důležitých diagramů.
