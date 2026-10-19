@@ -21,6 +21,8 @@ ověřit a věcně obhájit.
    nebo [PDF](slides/01-prvni-hodina/4ME484-01-uvod-do-kurzu.pdf)
 9. Prezentace z druhé hodiny: [PDF](slides/02-druha-hodina/4ME484-02-designovy-proces-v-praxi.pdf)
    nebo [Markdown pro práci s AI](slides/02-druha-hodina/4ME484-02-designovy-proces-v-praxi.md)
+10. Prezentace ze třetí hodiny: [PDF](slides/03-treti-hodina/4ME484-03-vyzkum-v-designu-sluzeb.pdf)
+    nebo [Markdown pro práci s AI](slides/03-treti-hodina/4ME484-03-vyzkum-v-designu-sluzeb.md)
 
 Podrobné hodnoticí úrovně jsou v rubrice [semestrální práce](course/project-rubric.md),
 [týmové obhajoby](course/defense-rubric.md) a

@@ -21,3 +21,11 @@ pracovním repozitáři kurzu.
 
 5. 10. 2026 · 56 snímků. Markdown zachovává číslování PDF a doplňuje popisy
 důležitých diagramů.
+
+## 03 - Třetí hodina: Výzkum v designu služeb
+
+- [PDF](03-treti-hodina/4ME484-03-vyzkum-v-designu-sluzeb.pdf)
+- [Markdown pro čtení a práci s AI](03-treti-hodina/4ME484-03-vyzkum-v-designu-sluzeb.md)
+
+19. 10. 2026 · 119 snímků. Markdown zachovává číslování PDF a doplňuje popisy
+důležitých diagramů.
