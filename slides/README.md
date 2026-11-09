@@ -29,3 +29,11 @@ důležitých diagramů.
 
 19. 10. 2026 · 119 snímků. Markdown zachovává číslování PDF a doplňuje popisy
 důležitých diagramů.
+
+## 04 - Čtvrtá hodina: Od dat k rozhodnutí
+
+- [PDF](04-ctvrta-hodina/4ME484-04-od-dat-k-rozhodnuti.pdf)
+- [Markdown pro čtení a práci s AI](04-ctvrta-hodina/4ME484-04-od-dat-k-rozhodnuti.md)
+
+9. 11. 2026 · 103 snímků. Markdown zachovává číslování PDF a doplňuje popisy
+důležitých obrázků.
