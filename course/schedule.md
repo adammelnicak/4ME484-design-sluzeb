@@ -7,9 +7,9 @@ mu pomohou zodpovědět důležitou otázku nebo udělat další doložené rozh
 Výuka v zimním semestru probíhá podle
 [harmonogramu VŠE](https://www.vse.cz/wp-content/uploads/page/208/Harmonogram_AR_2026-2027_ZS_v200226.pdf)
 od 21. 9. do 18. 12. 2026. V pondělí 28. 9. je státní svátek a od 2. do
-6. 11. probíhá inovační týden bez rozvrhované výuky. Proto má kurz jedenáct
-řádných pondělních setkání. Poslední setkání 14. 12. je celé vyhrazené týmovým
-obhajobám.
+6. 11. probíhá inovační týden bez rozvrhované výuky. V pondělí 23. 11. se výuka
+nekoná. Proto má kurz deset pondělních setkání. Poslední setkání 14. 12. je celé
+vyhrazené týmovým obhajobám ve slotech.
 
 ## Důležité termíny
 
@@ -22,10 +22,13 @@ obhajobám.
 | před 5. 10. 2026     | oznámení týmů a založení týmových repozitářů                                |
 | 12. 10. 2026         | **povinný check 1**                                                         |
 | 2.-6. 11. 2026       | inovační týden - rozvrhovaná výuka se nekoná                                |
-| 9. 11. 2026          | **povinný check 2**                                                         |
-| 30. 11. 2026         | **povinný check 3**                                                         |
-| 7. 12. 2026          | poslední projektová dílna a dokončení finální práce                         |
-| 14. 12. 2026         | **finální týmové obhajoby**                                                 |
+| 9. 11. 2026          | od dat k personám a customer journey                                        |
+| 16. 11. 2026         | **povinný check 2** (přesunut z 9. 11.); informační architektura a prototypování |
+| 23. 11. 2026         | výuka se nekoná                                                             |
+| 30. 11. 2026         | testování: rozpracovaný prototyp a plán jeho otestování                     |
+| 7. 12. 2026          | práce na prototypu a ověření, konzultace podle potřeby týmů                 |
+| do 7. 12. 2026       | rozpis časových slotů obhajob                                               |
+| 14. 12. 2026         | **finální týmové obhajoby** ve slotech, každý tým přichází na svůj čas      |
 | zkouškové období     | individuální zkoušky; přesné termíny budou doplněny                         |
 
 
